@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_URL =
-  "https://tolliq-backend.onrender.com"
+  "https://tolliq-backend.onrender.com/api/vehicles";
 
 /* =========================
    GET VEHICLES
