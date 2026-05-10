@@ -1,216 +1,189 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import Sidebar from "../../components/layout/Sidebar";
-import Navbar from "../../components/layout/Navbar";
+import Cookies from "js-cookie";
 
-import { tollData } from "../../utils/tollData";
-import { TollBooth } from "../../types/toll";
+const tollBooths = [
+
+  {
+    name: "Bangalore Toll Plaza",
+    state: "Karnataka",
+
+    prices: {
+      "Car/Jeep/Van": 80,
+      Bus: 150,
+      Truck: 200,
+      "Heavy Commercial Vehicle": 250,
+      Tractor: 120,
+    },
+  },
+
+  {
+    name: "Mumbai Express Toll",
+    state: "Maharashtra",
+
+    prices: {
+      "Car/Jeep/Van": 100,
+      Bus: 180,
+      Truck: 240,
+      "Heavy Commercial Vehicle": 300,
+      Tractor: 140,
+    },
+  },
+
+  {
+    name: "Hyderabad Highway Toll",
+    state: "Telangana",
+
+    prices: {
+      "Car/Jeep/Van": 90,
+      Bus: 160,
+      Truck: 220,
+      "Heavy Commercial Vehicle": 280,
+      Tractor: 130,
+    },
+  },
+
+];
 
 export default function TollBoothsPage() {
 
-  const [tolls, setTolls] = useState<TollBooth[]>(() => {
-
-    if (typeof window !== "undefined") {
-
-      const savedTolls =
-        localStorage.getItem("tolls");
-
-      return savedTolls
-        ? JSON.parse(savedTolls)
-        : tollData;
-    }
-
-    return tollData;
-  });
-
-  useEffect(() => {
-
-    localStorage.setItem(
-      "tolls",
-      JSON.stringify(tolls)
-    );
-
-  }, [tolls]);
-
-  const handleRateChange = (
-    index: number,
-    field: string,
-    value: number
-  ) => {
-
-    const updatedTolls = [...tolls];
-
-    updatedTolls[index] = {
-      ...updatedTolls[index],
-      [field]: value,
-    };
-
-    setTolls(updatedTolls);
-  };
-
   return (
-    <main className="flex min-h-screen bg-gray-100">
+
+    <div className="flex min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-950 text-white">
 
       <Sidebar />
 
       <div className="flex-1">
 
-        <Navbar />
+        {/* Header */}
 
-        <div className="p-6">
+        <div className="bg-white/10 backdrop-blur-xl border-b border-white/10 px-10 py-6 flex justify-between items-center sticky top-0 z-50">
 
-          <div className="bg-white p-6 rounded-2xl shadow-md overflow-x-auto">
+          <h1 className="text-3xl font-bold text-white">
 
-            <h2 className="text-2xl font-bold text-gray-700 mb-6">
-              Toll Booth Management
-            </h2>
+            Toll Booth Management
 
-            <table className="w-full border-collapse">
+          </h1>
 
-              <thead>
+          <button
+            onClick={() => {
 
-                <tr className="bg-blue-600 text-white">
+              Cookies.remove("auth");
 
-                  <th className="p-3 text-left">
-                    State
-                  </th>
+              window.location.href =
+                "/login";
 
-                  <th className="p-3 text-left">
-                    Toll Booth
-                  </th>
+            }}
+            className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl transition"
+          >
 
-                  <th className="p-3 text-left">
-                    Car/Jeep/Van
-                  </th>
+            Logout
 
-                  <th className="p-3 text-left">
-                    Bus
-                  </th>
+          </button>
 
-                  <th className="p-3 text-left">
-                    Truck
-                  </th>
+        </div>
 
-                  <th className="p-3 text-left">
-                    HCV
-                  </th>
+        {/* Content */}
 
-                  <th className="p-3 text-left">
-                    Tractor
-                  </th>
+        <div className="p-8 space-y-8">
 
-                </tr>
+          {tollBooths.map(
+            (toll, index) => (
 
-              </thead>
+              <div
+                key={index}
+                className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl p-8"
+              >
 
-              <tbody>
+                <h2 className="text-2xl font-bold text-cyan-300 mb-2">
 
-                {tolls.map((toll, index) => (
+                  {toll.name}
 
-                  <tr
-                    key={index}
-                    className="border-b hover:bg-gray-100 transition"
-                  >
+                </h2>
 
-                    <td className="p-3 text-gray-800">
-                      {toll.state}
-                    </td>
+                <p className="text-gray-300 mb-8">
 
-                    <td className="p-3 text-gray-800">
-                      {toll.tollName}
-                    </td>
+                  {toll.state}
 
-                    <td className="p-3">
-                      <input
-                        type="number"
-                        value={toll.carJeepVan}
-                        onChange={(e) =>
-                          handleRateChange(
-                            index,
-                            "carJeepVan",
-                            Number(e.target.value)
-                          )
-                        }
-                        className="border p-2 rounded w-24 text-gray-800"
-                      />
-                    </td>
+                </p>
 
-                    <td className="p-3">
-                      <input
-                        type="number"
-                        value={toll.bus}
-                        onChange={(e) =>
-                          handleRateChange(
-                            index,
-                            "bus",
-                            Number(e.target.value)
-                          )
-                        }
-                        className="border p-2 rounded w-24 text-gray-800"
-                      />
-                    </td>
+                <div className="overflow-x-auto">
 
-                    <td className="p-3">
-                      <input
-                        type="number"
-                        value={toll.truck}
-                        onChange={(e) =>
-                          handleRateChange(
-                            index,
-                            "truck",
-                            Number(e.target.value)
-                          )
-                        }
-                        className="border p-2 rounded w-24 text-gray-800"
-                      />
-                    </td>
+                  <table className="w-full">
 
-                    <td className="p-3">
-                      <input
-                        type="number"
-                        value={toll.heavyCommercialVehicle}
-                        onChange={(e) =>
-                          handleRateChange(
-                            index,
-                            "heavyCommercialVehicle",
-                            Number(e.target.value)
-                          )
-                        }
-                        className="border p-2 rounded w-24 text-gray-800"
-                      />
-                    </td>
+                    <thead>
 
-                    <td className="p-3">
-                      <input
-                        type="number"
-                        value={toll.tractor}
-                        onChange={(e) =>
-                          handleRateChange(
-                            index,
-                            "tractor",
-                            Number(e.target.value)
-                          )
-                        }
-                        className="border p-2 rounded w-24 text-gray-800"
-                      />
-                    </td>
+                      <tr className="bg-white/10 text-white">
 
-                  </tr>
+                        <th className="p-4 text-left rounded-l-xl">
 
-                ))}
+                          Vehicle Type
 
-              </tbody>
+                        </th>
 
-            </table>
+                        <th className="p-4 text-left rounded-r-xl">
 
-          </div>
+                          Toll Price (₹)
+
+                        </th>
+
+                      </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                      {Object.entries(
+                        toll.prices
+                      ).map(
+                        (
+                          [
+                            vehicleType,
+                            rate,
+                          ],
+                          idx
+                        ) => (
+
+                          <tr
+                            key={idx}
+                            className="border-b border-white/10"
+                          >
+
+                            <td className="p-4 text-white">
+
+                              {vehicleType}
+
+                            </td>
+
+                            <td className="p-4 text-cyan-300 font-semibold">
+
+                              ₹ {rate}
+
+                            </td>
+
+                          </tr>
+
+                        )
+                      )}
+
+                    </tbody>
+
+                  </table>
+
+                </div>
+
+              </div>
+
+            )
+          )}
 
         </div>
 
       </div>
 
-    </main>
+    </div>
+
   );
+
 }

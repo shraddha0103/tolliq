@@ -1,39 +1,96 @@
+"use client";
+
 import Link from "next/link";
+
+import {
+  LayoutDashboard,
+  Receipt,
+  BarChart3,
+} from "lucide-react";
 
 export default function Sidebar() {
 
   return (
-    <aside className="w-64 min-h-screen bg-blue-900 text-white p-5">
 
-      <h1 className="text-3xl font-bold mb-10">
-        TollIQ
-      </h1>
+    <div className="w-72 min-h-screen bg-linear-to-b from-blue-950 via-indigo-950 to-purple-950 text-white px-6 py-8 shadow-2xl">
 
-      <nav className="flex flex-col gap-4">
+      {/* Logo */}
+
+      <div className="bg-white/10 border border-white/10 backdrop-blur-xl rounded-3xl p-5 mb-10 shadow-xl">
+
+        <h1 className="text-3xl font-extrabold text-center tracking-wide">
+
+          TollIQ
+
+        </h1>
+
+        <p className="text-center text-gray-300 text-sm mt-2">
+
+          Smart Toll Management
+
+        </p>
+
+      </div>
+
+
+
+      {/* Menu */}
+
+      <div className="space-y-4">
 
         <Link
           href="/"
-          className="hover:bg-blue-700 hover:translate-x-2 p-3 rounded-lg transition"
+          className="flex items-center gap-4 bg-white/10 hover:bg-cyan-500 transition px-5 py-4 rounded-2xl"
         >
-          Dashboard
+
+          <LayoutDashboard size={24} />
+
+          <span className="text-lg font-medium">
+
+            Dashboard
+
+          </span>
+
         </Link>
+
+
 
         <Link
           href="/tollbooths"
-          className="hover:bg-blue-700 hover:translate-x-2 p-3 rounded-lg transition"
+          className="flex items-center gap-4 bg-white/10 hover:bg-cyan-500 transition px-5 py-4 rounded-2xl"
         >
-          Toll Booths
+
+          <Receipt size={24} />
+
+          <span className="text-lg font-medium">
+
+            Toll Booths
+
+          </span>
+
         </Link>
+
+
 
         <Link
           href="/reports"
-          className="hover:bg-blue-700 hover:translate-x-2 p-3 rounded-lg transition"
+          className="flex items-center gap-4 bg-white/10 hover:bg-cyan-500 transition px-5 py-4 rounded-2xl"
         >
-          Reports
+
+          <BarChart3 size={24} />
+
+          <span className="text-lg font-medium">
+
+            Reports
+
+          </span>
+
         </Link>
 
-      </nav>
+      </div>
 
-    </aside>
+    </div>
+
   );
+
 }

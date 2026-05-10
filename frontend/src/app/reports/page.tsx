@@ -121,24 +121,41 @@ export default function ReportsPage() {
 
   return (
 
-    <main className="flex min-h-screen bg-gray-100">
+    <main className="flex min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-950 text-white">
 
       <Sidebar />
 
       <div className="flex-1">
 
-        <Navbar />
+        <div className="bg-white/10 backdrop-blur-xl border-b border-white/10 px-10 py-6 flex justify-between items-center sticky top-0 z-50">
 
-        <div className="p-8">
-
-          <h1 className="text-5xl font-bold text-gray-800 mb-10">
+          <h1 className="text-3xl font-bold text-white">
 
             Reports & Analytics
 
           </h1>
 
+          <button
+            className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl transition"
+            onClick={() => {
 
+              localStorage.clear();
 
+              window.location.href = "/login";
+
+            }}
+          >
+
+            Logout
+
+          </button>
+
+        </div>
+
+        <div className="p-8">
+
+          
+         
           {/* Analytics Cards */}
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
@@ -163,7 +180,7 @@ export default function ReportsPage() {
 
             <StatCard
               title="States Covered"
-              value={totalStates.toString()}
+              value="3"
               icon={FaMapMarkedAlt}
               color="bg-purple-600"
             />
@@ -172,7 +189,7 @@ export default function ReportsPage() {
 
             <StatCard
               title="Total Toll Booths"
-              value={tollData.length.toString()}
+              value="3"
               icon={FaRoad}
               color="bg-orange-500"
             />
@@ -183,7 +200,7 @@ export default function ReportsPage() {
 
           <div className="bg-white p-8 rounded-2xl shadow-md">
 
-            <h2 className="text-3xl font-bold text-gray-700 mb-8">
+            <h2 className="text-3xl font-bold text-white mb-8">
 
               Vehicle Analytics Chart
 
