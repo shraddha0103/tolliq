@@ -6,7 +6,17 @@ const vehicleRoutes = require("./routes/vehicleRoutes");
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://tolliq.vercel.app",
+      "https://tolliq-pldkrhgj7-shraddha-h-s-s-projects.vercel.app",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 app.use("/api/vehicles", vehicleRoutes);
